@@ -207,9 +207,10 @@ nigiri_location_t* nigiri_get_location_with_footpaths(
   location->lat = l.pos_.lat_;
   location->lon = l.pos_.lng_;
   location->transfer_time = static_cast<uint16_t>(l.transfer_time_.count());
+  // TCEDIT
   auto footpaths = incoming_footpaths
-                       ? t->tt->locations_.footpaths_in_[0][lidx]
-                       : t->tt->locations_.footpaths_out_[0][lidx];
+                       ? t->tt->locations_.footpaths_in_filtered_[0][lidx]
+                       : t->tt->locations_.footpaths_out_filtered_[0][lidx];
   auto const n_footpaths = footpaths.size();
   location->footpaths = new nigiri_footpath_t[n_footpaths];
   if (n_footpaths > 0) {

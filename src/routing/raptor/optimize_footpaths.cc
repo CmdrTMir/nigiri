@@ -256,10 +256,11 @@ void optimize_transfers(timetable const& tt,
         if (!stp_to.in_allowed()) {
           continue;
         }
-
+        // TCEDIT
         for (auto const& fp :
              tt.locations_
-                 .footpaths_out_[q.prf_idx_][stp_from.get_location_idx()]) {
+                 .footpaths_out_filtered_[q.prf_idx_]
+                                         [stp_from.get_location_idx()]) {
           if (fp.target() != stp_to.get_location_idx()) {
             continue;
           }

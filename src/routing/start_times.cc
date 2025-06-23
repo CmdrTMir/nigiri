@@ -257,14 +257,15 @@ void get_starts(
     auto& val = utl::get_or_create(shortest_start, l, [d]() { return d; });
     val = std::min(val, d);
   };
-
+  // TCEDIT
   auto const fwd = search_dir == direction::kForward;
   for (auto const& o : start_offsets) {
     for_each_meta(tt, mode, o.target(), [&](location_idx_t const l) {
       update(l, o.duration());
       if (use_start_footpaths) {
-        auto const footpaths = fwd ? tt.locations_.footpaths_out_[prf_idx][l]
-                                   : tt.locations_.footpaths_in_[prf_idx][l];
+        auto const footpaths =
+            fwd ? tt.locations_.footpaths_out_filtered_[prf_idx][l]
+                : tt.locations_.footpaths_in_filtered_[prf_idx][l];
         for (auto const& fp : footpaths) {
           update(fp.target(),
                  o.duration() + adjusted_transfer_time(tts, fp.duration()));

@@ -384,23 +384,45 @@ void sort_footpaths(timetable& tt) {
   }
 }
 
+// TCEDIT
 void write_footpaths(timetable& tt) {
   assert(tt.locations_.footpaths_out_.size() == kNProfiles);
   assert(tt.locations_.footpaths_in_.size() == kNProfiles);
+  assert(tt.locations_.footpaths_out_filtered_.size() == kNProfiles);
+  assert(tt.locations_.footpaths_in_filtered_.size() == kNProfiles);
   assert(tt.locations_.preprocessing_footpaths_out_.size() == tt.n_locations());
   assert(tt.locations_.preprocessing_footpaths_in_.size() == tt.n_locations());
 
   profile_idx_t const prf_idx{0};
+  int count_out = 0;
+  int count_in = 0;
 
   for (auto i = location_idx_t{0U}; i != tt.n_locations(); ++i) {
     tt.locations_.footpaths_out_[prf_idx].emplace_back(
         tt.locations_.preprocessing_footpaths_out_[i]);
+    if (tt.location_routes_.at(i).size() != 0 || i < 9U) {
+      count_out++;
+      tt.locations_.footpaths_out_filtered_[prf_idx].emplace_back(
+          tt.locations_.preprocessing_footpaths_out_[i]);
+    }
   }
+
+  std::cout << "\n\n";
+  std::cout << "\t tt.n_locations = " << tt.n_locations() << "\n";
+  std::cout << "\t count out = " << count_out << "\n";
 
   for (auto i = location_idx_t{0U}; i != tt.n_locations(); ++i) {
     tt.locations_.footpaths_in_[prf_idx].emplace_back(
         tt.locations_.preprocessing_footpaths_in_[i]);
+    if (tt.location_routes_.at(i).size() != 0 || i < 9U) {
+      count_in++;
+      tt.locations_.footpaths_in_filtered_[prf_idx].emplace_back(
+          tt.locations_.preprocessing_footpaths_in_[i]);
+    }
   }
+
+  std::cout << "\t count in = " << count_in << "\n";
+  std::cout << "\n\n";
 
   tt.locations_.preprocessing_footpaths_in_.clear();
   tt.locations_.preprocessing_footpaths_out_.clear();

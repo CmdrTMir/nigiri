@@ -125,6 +125,9 @@ struct timetable {
     mutable_fws_multimap<location_idx_t, location_idx_t> children_;
     mutable_fws_multimap<location_idx_t, footpath> preprocessing_footpaths_out_;
     mutable_fws_multimap<location_idx_t, footpath> preprocessing_footpaths_in_;
+    // TCEDIT
+    array<vecvec<location_idx_t, footpath>, kNProfiles> footpaths_out_filtered_;
+    array<vecvec<location_idx_t, footpath>, kNProfiles> footpaths_in_filtered_;
     array<vecvec<location_idx_t, footpath>, kNProfiles> footpaths_out_;
     array<vecvec<location_idx_t, footpath>, kNProfiles> footpaths_in_;
     vector_map<timezone_idx_t, timezone> timezones_;

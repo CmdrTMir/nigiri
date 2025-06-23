@@ -21,6 +21,7 @@ int main(int argc, char** argv) {
   fs::current_path(NIGIRI_TEST_EXECUTION_DIR);
 
   ::testing::InitGoogleTest(&argc, argv);
+  //::testing::GTEST_FLAG(filter) = "loader.*";
   auto test_result = RUN_ALL_TESTS();
 
   google::protobuf::ShutdownProtobufLibrary();

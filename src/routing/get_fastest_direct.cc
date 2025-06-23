@@ -61,10 +61,11 @@ duration_t get_fastest_direct(timetable const& tt,
     if (get_dist(l.l_) < l.d_) {
       continue;
     }
-
+    // TCEDIT
     auto const& footpaths =
-        (dir == direction::kForward ? tt.locations_.footpaths_out_[q.prf_idx_]
-                                    : tt.locations_.footpaths_in_[q.prf_idx_]);
+        (dir == direction::kForward
+             ? tt.locations_.footpaths_out_filtered_[q.prf_idx_]
+             : tt.locations_.footpaths_in_filtered_[q.prf_idx_]);
     for (auto const& fp : footpaths[l.l_]) {
       auto const new_dist =
           l.d_ + adjusted_transfer_time(

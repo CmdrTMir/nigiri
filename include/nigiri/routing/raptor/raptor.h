@@ -465,9 +465,10 @@ private:
           return;
         }
       }
-
-      auto const& fps = kFwd ? tt_.locations_.footpaths_out_[prf_idx][l_idx]
-                             : tt_.locations_.footpaths_in_[prf_idx][l_idx];
+      // TCEDIT
+      auto const& fps =
+          kFwd ? tt_.locations_.footpaths_out_filtered_[prf_idx][l_idx]
+               : tt_.locations_.footpaths_in_filtered_[prf_idx][l_idx];
 
       for (auto const& fp : fps) {
         ++stats_.n_footpaths_visited_;
